@@ -561,7 +561,7 @@
   <p style="font-style:italic;opacity:0.65;margin-bottom:0.6rem;">If it's dirty, we clean it.</p>
   <p><a href="mailto:sue.hailoh@gmail.com">sue.hailoh@gmail.com</a> &nbsp;|&nbsp; <a href="tel:7204016601">720.401.6601</a> &nbsp;|&nbsp; <a href="http://mycleanersue.com">mycleanersue.com</a></p>
   <p style="margin-top:1rem;font-size:0.75rem;opacity:0.4;">© 2026 S.G. Cleaning Services. All rights reserved.</p>
-  <p style="font-size:0.65rem;opacity:0.25;margin-top:0.3rem;">v1.9</p>
+  <p style="font-size:0.65rem;opacity:0.25;margin-top:0.3rem;">v2.0</p>
 </footer>
 
 <script>
@@ -650,33 +650,44 @@
     }
 
     const formattedPhone = '(' + phoneDigits.slice(0,3) + ') ' + phoneDigits.slice(3,6) + '-' + phoneDigits.slice(6);
+
+    // ── Hidden iframe trick — bypasses CORS completely ──
+    const iframeName = 'hidden_iframe_' + Date.now();
+    const iframe = document.createElement('iframe');
+    iframe.name = iframeName;
+    iframe.style.display = 'none';
+    document.body.appendChild(iframe);
+
+    const form = document.createElement('form');
+    form.method = 'POST';
+    form.action = SCRIPT_URL;
+    form.target = iframeName;
+
+    const fields2 = { fname, lname, phone: formattedPhone, email, city, service, ecoPref, message };
+    Object.keys(fields2).forEach(key => {
+      const input = document.createElement('input');
+      input.type = 'hidden';
+      input.name = key;
+      input.value = fields2[key];
+      form.appendChild(input);
+    });
+
+    document.body.appendChild(form);
+
+    iframe.onload = function() {
+      document.getElementById('formWrap').style.display = 'none';
+      document.getElementById('formSuccess').style.display = 'block';
+      setTimeout(() => {
+        document.body.removeChild(form);
+        document.body.removeChild(iframe);
+      }, 1000);
+    };
+
     const btn = document.querySelector('.form-submit');
     btn.textContent = 'Sending...';
     btn.disabled = true;
 
-    const formData = new FormData();
-    formData.append('fname',   fname);
-    formData.append('lname',   lname);
-    formData.append('phone',   formattedPhone);
-    formData.append('email',   email);
-    formData.append('city',    city);
-    formData.append('service', service);
-    formData.append('ecoPref', ecoPref);
-    formData.append('message', message);
-
-    fetch(SCRIPT_URL, {
-      method: 'POST',
-      mode: 'no-cors',
-      body: formData
-    })
-    .then(() => {
-      document.getElementById('formWrap').style.display = 'none';
-      document.getElementById('formSuccess').style.display = 'block';
-    })
-    .catch(() => {
-      document.getElementById('formWrap').style.display = 'none';
-      document.getElementById('formSuccess').style.display = 'block';
-    });
+    form.submit();
   }
 
   const phoneInput = document.getElementById('phone');
