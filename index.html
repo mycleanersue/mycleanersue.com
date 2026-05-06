@@ -604,12 +604,44 @@
   }
   setTimeout(popRandom, 2000);
 
+  // ── Form submission → Google Apps Script → Gmail ──
+  const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzNqfytQeks5hkUP_KyTohRjg_gEIK-a7-451xb7DunL5fUKSlriM509jLOfy1qLYZp/exec';
+
   function submitForm() {
-    const fname = document.getElementById('fname').value.trim();
-    const email = document.getElementById('email').value.trim();
-    if (!fname || !email) { alert('Please fill in at least your name and email.'); return; }
-    document.getElementById('formWrap').style.display = 'none';
-    document.getElementById('formSuccess').style.display = 'block';
+    const fname   = document.getElementById('fname').value.trim();
+    const lname   = document.getElementById('lname').value.trim();
+    const phone   = document.getElementById('phone').value.trim();
+    const email   = document.getElementById('email').value.trim();
+    const city    = document.getElementById('city').value.trim();
+    const service = document.getElementById('service').value.trim();
+    const ecoPref = document.getElementById('eco-pref').value.trim();
+    const message = document.getElementById('message').value.trim();
+
+    if (!fname || !email) {
+      alert('Please fill in at least your name and email.');
+      return;
+    }
+
+    // Show sending state
+    const btn = document.querySelector('.form-submit');
+    btn.textContent = 'Sending...';
+    btn.disabled = true;
+
+    fetch(SCRIPT_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ fname, lname, phone, email, city, service, ecoPref, message })
+    })
+    .then(() => {
+      document.getElementById('formWrap').style.display = 'none';
+      document.getElementById('formSuccess').style.display = 'block';
+    })
+    .catch(() => {
+      alert('Something went wrong. Please call or text Sue directly at 720.401.6601');
+      btn.textContent = 'Send My Request ✨';
+      btn.disabled = false;
+    });
   }
 
   const observer = new IntersectionObserver((entries) => {
