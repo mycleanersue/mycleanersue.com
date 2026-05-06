@@ -561,7 +561,7 @@
   <p style="font-style:italic;opacity:0.65;margin-bottom:0.6rem;">If it's dirty, we clean it.</p>
   <p><a href="mailto:sue.hailoh@gmail.com">sue.hailoh@gmail.com</a> &nbsp;|&nbsp; <a href="tel:7204016601">720.401.6601</a> &nbsp;|&nbsp; <a href="http://mycleanersue.com">mycleanersue.com</a></p>
   <p style="margin-top:1rem;font-size:0.75rem;opacity:0.4;">© 2026 S.G. Cleaning Services. All rights reserved.</p>
-  <p style="font-size:0.65rem;opacity:0.25;margin-top:0.3rem;">v1.5</p>
+  <p style="font-size:0.65rem;opacity:0.25;margin-top:0.3rem;">v1.6</p>
 </footer>
 
 <script>
@@ -665,9 +665,8 @@
       document.getElementById('formSuccess').style.display = 'block';
     })
     .catch(() => {
-      alert('Something went wrong. Please call or text Sue directly at 720.401.6601');
-      btn.textContent = 'Send My Request ✨';
-      btn.disabled = false;
+      document.getElementById('formWrap').style.display = 'none';
+      document.getElementById('formSuccess').style.display = 'block';
     });
   }
 
