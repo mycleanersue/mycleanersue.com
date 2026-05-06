@@ -512,7 +512,7 @@
             <div class="form-group"><label>Last Name <span style="color:var(--orange)">*</span></label><input type="text" id="lname" placeholder="Smith" autocomplete="family-name" required /></div>
           </div>
           <div class="form-row">
-            <div class="form-group"><label>Phone <span style="color:var(--orange)">*</span></label><input type="tel" id="phone" placeholder="720-555-0100" autocomplete="tel" required /></div>
+            <div class="form-group"><label>Phone <span style="color:var(--orange)">*</span></label><input type="tel" id="phone" placeholder="720-555-0100" autocomplete="tel" maxlength="14" required /></div>
             <div class="form-group"><label>Email <span style="color:var(--orange)">*</span></label><input type="email" id="email" placeholder="jane@example.com" autocomplete="email" required /></div>
           </div>
           <div class="form-group"><label>City / Zip <span style="color:var(--orange)">*</span></label><input type="text" id="city" placeholder="Louisville, CO 80027" autocomplete="address-level2" required /></div>
@@ -649,7 +649,18 @@
       return;
     }
 
-    // Show sending state
+    // Enforce 10 digits on phone
+    const phoneDigits = phone.replace(/\D/g, '');
+    if (phoneDigits.length !== 10) {
+      const el = document.getElementById('phone');
+      el.style.borderColor = 'var(--orange)';
+      el.style.boxShadow = '0 0 0 3px rgba(244,123,32,0.15)';
+      alert('Please enter a valid 10-digit phone number.');
+      return;
+    }
+
+    // Format phone nicely: (720) 401-6601
+    const formattedPhone = '(' + phoneDigits.slice(0,3) + ') ' + phoneDigits.slice(3,6) + '-' + phoneDigits.slice(6);
     const btn = document.querySelector('.form-submit');
     btn.textContent = 'Sending...';
     btn.disabled = true;
@@ -658,7 +669,7 @@
       method: 'POST',
       mode: 'no-cors',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ fname, lname, phone, email, city, service, ecoPref, message })
+      body: JSON.stringify({ fname, lname, phone: formattedPhone, email, city, service, ecoPref, message })
     })
     .then(() => {
       document.getElementById('formWrap').style.display = 'none';
