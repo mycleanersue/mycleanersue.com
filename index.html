@@ -508,17 +508,17 @@
         <p class="form-title">Request a Free Quote</p>
         <div id="formWrap">
           <div class="form-row">
-            <div class="form-group"><label>First Name</label><input type="text" id="fname" placeholder="Jane" /></div>
-            <div class="form-group"><label>Last Name</label><input type="text" id="lname" placeholder="Smith" /></div>
+            <div class="form-group"><label>First Name <span style="color:var(--orange)">*</span></label><input type="text" id="fname" placeholder="Jane" autocomplete="given-name" required /></div>
+            <div class="form-group"><label>Last Name <span style="color:var(--orange)">*</span></label><input type="text" id="lname" placeholder="Smith" autocomplete="family-name" required /></div>
           </div>
           <div class="form-row">
-            <div class="form-group"><label>Phone</label><input type="tel" id="phone" placeholder="720-555-0100" /></div>
-            <div class="form-group"><label>Email</label><input type="email" id="email" placeholder="jane@example.com" /></div>
+            <div class="form-group"><label>Phone <span style="color:var(--orange)">*</span></label><input type="tel" id="phone" placeholder="720-555-0100" autocomplete="tel" required /></div>
+            <div class="form-group"><label>Email <span style="color:var(--orange)">*</span></label><input type="email" id="email" placeholder="jane@example.com" autocomplete="email" required /></div>
           </div>
-          <div class="form-group"><label>City / Zip</label><input type="text" id="city" placeholder="Louisville, CO 80027" /></div>
+          <div class="form-group"><label>City / Zip <span style="color:var(--orange)">*</span></label><input type="text" id="city" placeholder="Louisville, CO 80027" autocomplete="address-level2" required /></div>
           <div class="form-group">
-            <label>Service Needed</label>
-            <select id="service">
+            <label>Service Needed <span style="color:var(--orange)">*</span></label>
+            <select id="service" required>
               <option value="">Select a service...</option>
               <option>NCO — Express Clean (Neat, Clean, Orderly)</option>
               <option>Residential Cleaning</option>
@@ -537,14 +537,15 @@
             </select>
           </div>
           <div class="form-group">
-            <label>Eco-Friendly Products?</label>
-            <select id="eco-pref">
-              <option value="">I'll decide later</option>
+            <label>Eco-Friendly Products? <span style="color:var(--orange)">*</span></label>
+            <select id="eco-pref" required>
+              <option value="">Please select...</option>
               <option>Yes — please use organic / pet-safe products</option>
               <option>No preference — standard products are fine</option>
             </select>
           </div>
-          <div class="form-group"><label>Tell Us More</label><textarea id="message" placeholder="Square footage, number of rooms, special requests, vehicle type..."></textarea></div>
+          <div class="form-group"><label>Tell Us More <span style="color:var(--orange)">*</span></label><textarea id="message" placeholder="Square footage, number of rooms, special requests, vehicle type..." autocomplete="off" required></textarea></div>
+          <p style="font-size:0.75rem;color:var(--text-mid);font-weight:700;margin-bottom:1rem;">* All fields required</p>
           <button class="form-submit" onclick="submitForm()">Send My Request ✨</button>
         </div>
         <div class="form-success" id="formSuccess">
@@ -617,8 +618,34 @@
     const ecoPref = document.getElementById('eco-pref').value.trim();
     const message = document.getElementById('message').value.trim();
 
-    if (!fname || !email) {
-      alert('Please fill in at least your name and email.');
+    // Check all fields
+    const fields = [
+      { val: fname,   id: 'fname',    label: 'First Name' },
+      { val: lname,   id: 'lname',    label: 'Last Name' },
+      { val: phone,   id: 'phone',    label: 'Phone' },
+      { val: email,   id: 'email',    label: 'Email' },
+      { val: city,    id: 'city',     label: 'City / Zip' },
+      { val: service, id: 'service',  label: 'Service Needed' },
+      { val: ecoPref, id: 'eco-pref', label: 'Eco-Friendly Preference' },
+      { val: message, id: 'message',  label: 'Tell Us More' },
+    ];
+
+    // Highlight missing fields in orange
+    let missing = [];
+    fields.forEach(f => {
+      const el = document.getElementById(f.id);
+      if (!f.val) {
+        el.style.borderColor = 'var(--orange)';
+        el.style.boxShadow = '0 0 0 3px rgba(244,123,32,0.15)';
+        missing.push(f.label);
+      } else {
+        el.style.borderColor = '';
+        el.style.boxShadow = '';
+      }
+    });
+
+    if (missing.length > 0) {
+      alert('Please fill in all required fields:\n• ' + missing.join('\n• '));
       return;
     }
 
