@@ -106,8 +106,29 @@
 
     /* ─── SERVICES ─── */
     #services { background: var(--off-white); }
-    .services-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 1.5rem; }
-    .service-card { background: white; border-radius: var(--radius-lg); padding: 2rem; border: 1.5px solid rgba(59,158,224,0.1); transition: transform 0.2s, box-shadow 0.2s; position: relative; overflow: hidden; }
+    
+    /* FIX: Added width and proper grid-auto-rows to prevent overlapping */
+    .services-grid { 
+      display: grid; 
+      grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); 
+      gap: 1.5rem; 
+      width: 100%; 
+    }
+    
+    /* FIX: Added display flex and height 100% so they stack and align correctly */
+    .service-card { 
+      background: white; 
+      border-radius: var(--radius-lg); 
+      padding: 2rem; 
+      border: 1.5px solid rgba(59,158,224,0.1); 
+      transition: transform 0.2s, box-shadow 0.2s; 
+      position: relative; 
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+    
     .service-card::after { content: ''; position: absolute; top: -25px; right: -25px; width: 90px; height: 90px; border-radius: 50%; background: rgba(59,158,224,0.05); }
     .service-card:hover { transform: translateY(-4px); box-shadow: 0 14px 36px rgba(59,158,224,0.12); }
     .service-card.orange-accent { border-color: rgba(244,123,32,0.15); }
@@ -227,7 +248,6 @@
 
 <div class="bubbles-bg" id="bubblesContainer"></div>
 
-<!-- NAV -->
 <nav>
   <div>
     <span class="nav-logo-sg">S.G.</span>
@@ -244,7 +264,6 @@
   <a href="#contact" class="nav-cta">Get a Quote</a>
 </nav>
 
-<!-- HERO -->
 <section id="hero">
   <div class="hero-blob b1"></div>
   <div class="hero-blob b2"></div>
@@ -271,7 +290,6 @@
   </div>
 </section>
 
-<!-- NO TRAVEL FEE BANNER -->
 <div style="background: linear-gradient(90deg, var(--orange-dark), var(--orange), #FF9A45, var(--orange), var(--orange-dark)); background-size: 300% 100%; animation: shimmer 4s ease infinite; padding: 1rem 2rem; text-align: center; position: relative; z-index: 1;">
   <p style="color: white; font-weight: 900; font-size: clamp(0.85rem, 2vw, 1.05rem); letter-spacing: 0.5px; margin: 0;">
     ⛽ <strong>No Travel Fees — Ever.</strong> &nbsp;While other companies charge extra for gas, S.G. Cleaning Services never has and never will. We come to you, anywhere in Colorado, at no extra cost.
@@ -281,7 +299,6 @@
   @keyframes shimmer { 0% { background-position: 100% 0; } 100% { background-position: -100% 0; } }
 </style>
 
-<!-- SERVICES -->
 <section id="services">
   <div class="section-inner">
     <p class="section-label">What We Do</p>
@@ -356,7 +373,6 @@
   </div>
 </section>
 
-<!-- SERVICE AREA -->
 <section id="area">
   <div class="section-inner area-center">
     <p class="section-label">Coverage</p>
@@ -370,7 +386,6 @@
   </div>
 </section>
 
-<!-- ECO-FRIENDLY -->
 <section id="eco">
   <div class="section-inner">
     <div class="eco-inner">
@@ -395,17 +410,14 @@
   </div>
 </section>
 
-<!-- GALLERY -->
 <section id="gallery">
   <div class="section-inner">
     <p class="section-label">Our Work</p>
     <h2 class="section-title">Before &amp; After</h2>
     <p class="section-sub">The proof is in the pictures. See what a difference S.G. Cleaning makes.</p>
 
-    <!-- Coming Soon Overlay Wrapper -->
     <div style="position:relative;">
 
-      <!-- Blurred gallery behind -->
       <div style="filter:blur(4px);opacity:0.45;pointer-events:none;">
         <div class="gallery-grid">
           <div class="gallery-card">
@@ -439,7 +451,6 @@
         </div>
       </div>
 
-      <!-- Coming Soon badge on top -->
       <div style="position:absolute;top:0;left:0;width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;">
         <div style="background:white;border-radius:24px;padding:2.5rem 3rem;box-shadow:0 12px 48px rgba(26,63,82,0.15);border:2px solid rgba(244,123,32,0.25);max-width:420px;">
           <div style="font-size:3rem;margin-bottom:0.75rem;">📷</div>
@@ -453,7 +464,6 @@
   </div>
 </section>
 
-<!-- REVIEWS -->
 <section id="reviews">
   <div class="section-inner">
     <p class="section-label">Happy Customers</p>
@@ -499,7 +509,6 @@
   </div>
 </section>
 
-<!-- CONTACT -->
 <section id="contact">
   <div class="section-inner">
     <div class="contact-wrap">
@@ -573,7 +582,6 @@
   </div>
 </section>
 
-<!-- FOOTER -->
 <footer>
   <div class="footer-logo"><span>S.G.</span> Cleaning Services</div>
   <p style="font-style:italic;opacity:0.65;margin-bottom:0.6rem;">If it's dirty, we clean it.</p>
@@ -703,7 +711,10 @@
   const phoneInput = document.getElementById('phone');
   phoneInput.addEventListener('input', function() {
     this.value = this.value.replace(/\D/g, '').slice(0, 10);
-  });((entries) => {
+  });
+
+  // Simple scroll reveal
+  const observer = new IntersectionObserver((entries) => {
     entries.forEach(e => {
       if (e.isIntersecting) { e.target.style.opacity = '1'; e.target.style.transform = 'translateY(0)'; }
     });
