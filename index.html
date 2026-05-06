@@ -401,38 +401,54 @@
     <p class="section-label">Our Work</p>
     <h2 class="section-title">Before &amp; After</h2>
     <p class="section-sub">The proof is in the pictures. See what a difference S.G. Cleaning makes.</p>
-    <div class="gallery-grid">
-      <div class="gallery-card">
-        <div class="gallery-pair">
-          <div class="gallery-half before">🧹<span class="gallery-half-label">Before</span></div>
-          <div class="gallery-half after">✨<span class="gallery-half-label">After</span></div>
+
+    <!-- Coming Soon Overlay Wrapper -->
+    <div style="position:relative;">
+
+      <!-- Blurred gallery behind -->
+      <div style="filter:blur(4px);opacity:0.45;pointer-events:none;">
+        <div class="gallery-grid">
+          <div class="gallery-card">
+            <div class="gallery-pair">
+              <div class="gallery-half before">🧹<span class="gallery-half-label">Before</span></div>
+              <div class="gallery-half after">✨<span class="gallery-half-label">After</span></div>
+            </div>
+            <div class="gallery-caption">Kitchen Deep Clean</div>
+          </div>
+          <div class="gallery-card">
+            <div class="gallery-pair">
+              <div class="gallery-half before">🧹<span class="gallery-half-label">Before</span></div>
+              <div class="gallery-half after">✨<span class="gallery-half-label">After</span></div>
+            </div>
+            <div class="gallery-caption">Bathroom Refresh</div>
+          </div>
+          <div class="gallery-card">
+            <div class="gallery-pair">
+              <div class="gallery-half before">🧹<span class="gallery-half-label">Before</span></div>
+              <div class="gallery-half after">✨<span class="gallery-half-label">After</span></div>
+            </div>
+            <div class="gallery-caption">Post-Construction Cleanup</div>
+          </div>
+          <div class="gallery-card">
+            <div class="gallery-pair">
+              <div class="gallery-half before">🧹<span class="gallery-half-label">Before</span></div>
+              <div class="gallery-half after">✨<span class="gallery-half-label">After</span></div>
+            </div>
+            <div class="gallery-caption">Make Ready</div>
+          </div>
         </div>
-        <div class="gallery-caption">Kitchen Deep Clean</div>
       </div>
-      <div class="gallery-card">
-        <div class="gallery-pair">
-          <div class="gallery-half before">🧹<span class="gallery-half-label">Before</span></div>
-          <div class="gallery-half after">✨<span class="gallery-half-label">After</span></div>
+
+      <!-- Coming Soon badge on top -->
+      <div style="position:absolute;top:0;left:0;width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;">
+        <div style="background:white;border-radius:24px;padding:2.5rem 3rem;box-shadow:0 12px 48px rgba(26,63,82,0.15);border:2px solid rgba(244,123,32,0.25);max-width:420px;">
+          <div style="font-size:3rem;margin-bottom:0.75rem;">📷</div>
+          <h3 style="font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:700;color:var(--text-dark);margin:0 0 0.5rem;">Coming Soon</h3>
+          <p style="font-size:0.95rem;font-weight:600;color:var(--text-mid);margin:0 0 1.25rem;line-height:1.6;">Sue's team is out there making spaces spotless — real before &amp; after photos are on their way!</p>
+          <div style="display:inline-block;background:var(--orange-light);color:var(--orange-dark);border-radius:50px;padding:0.4rem 1.2rem;font-size:0.78rem;font-weight:800;letter-spacing:1px;text-transform:uppercase;">Photos Loading Soon ✨</div>
         </div>
-        <div class="gallery-caption">Bathroom Refresh</div>
       </div>
-      <div class="gallery-card">
-        <div class="gallery-pair">
-          <div class="gallery-half before">🧹<span class="gallery-half-label">Before</span></div>
-          <div class="gallery-half after">✨<span class="gallery-half-label">After</span></div>
-        </div>
-        <div class="gallery-caption">Post-Construction Cleanup</div>
-      </div>
-      <div class="gallery-card">
-        <div class="gallery-pair">
-          <div class="gallery-half before">🧹<span class="gallery-half-label">Before</span></div>
-          <div class="gallery-half after">✨<span class="gallery-half-label">After</span></div>
-        </div>
-        <div class="gallery-caption">Make Ready</div>
-      </div>
-    </div>
-    <div class="gallery-upload-note">
-      📷 Real before &amp; after photos coming soon! Sue's team is out there making magic happen — check back shortly.
+
     </div>
   </div>
 </section>
@@ -515,7 +531,7 @@
             <div class="form-group"><label>Phone <span style="color:var(--orange)">*</span></label><input type="tel" id="phone" placeholder="7205550100" autocomplete="tel" maxlength="10" required /></div>
             <div class="form-group"><label>Email <span style="color:var(--orange)">*</span></label><input type="email" id="email" placeholder="jane@example.com" autocomplete="email" required /></div>
           </div>
-          <div class="form-group"><label>City / Zip <span style="color:var(--orange)">*</span></label><input type="text" id="city" placeholder="Louisville, CO 80027" autocomplete="address-level2" required /></div>
+          <div class="form-group"><label>Zip Code <span style="color:var(--orange)">*</span></label><input type="text" id="city" placeholder="80027" autocomplete="postal-code" maxlength="5" required /></div>
           <div class="form-group">
             <label>Service Needed <span style="color:var(--orange)">*</span></label>
             <select id="service" required>
@@ -563,7 +579,7 @@
   <p style="font-style:italic;opacity:0.65;margin-bottom:0.6rem;">If it's dirty, we clean it.</p>
   <p><a href="mailto:sue.hailoh@gmail.com">sue.hailoh@gmail.com</a> &nbsp;|&nbsp; <a href="tel:7204016601">720.401.6601</a> &nbsp;|&nbsp; <a href="http://mycleanersue.com">mycleanersue.com</a></p>
   <p style="margin-top:1rem;font-size:0.75rem;opacity:0.4;">© 2026 S.G. Cleaning Services. All rights reserved.</p>
-  <p style="font-size:0.65rem;opacity:0.25;margin-top:0.3rem;">v1.1</p>
+  <p style="font-size:0.65rem;opacity:0.25;margin-top:0.3rem;">v1.3</p>
 </footer>
 
 <script>
@@ -625,7 +641,7 @@
       { val: lname,   id: 'lname',    label: 'Last Name' },
       { val: phone,   id: 'phone',    label: 'Phone' },
       { val: email,   id: 'email',    label: 'Email' },
-      { val: city,    id: 'city',     label: 'City / Zip' },
+      { val: city,    id: 'city',     label: 'Zip Code' },
       { val: service, id: 'service',  label: 'Service Needed' },
       { val: ecoPref, id: 'eco-pref', label: 'Eco-Friendly Preference' },
       { val: message, id: 'message',  label: 'Tell Us More' },
