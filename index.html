@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>S.G. Cleaning Services | mycleanersue.com</title>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --sky: #3B9EE0;
+      --sky-light: #D6EDFA;
+      --sky-mid: #7EC4EE;
+      --sky-dark: #1A6FA8;
+      --orange: #F47B20;
+      --orange-light: #FEE8D6;
+      --orange-dark: #C4601A;
+      --green: #2E9E6B;
+      --green-light: #D4F0E4;
+      --green-dark: #1A6B49;
+      --white: #ffffff;
+      --off-white: #F4F9FD;
+      --text-dark: #1A3A52;
+      --text-mid: #3B6282;
+      --radius: 20px;
+      --radius-lg: 32px;
+    }
+
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Nunito', sans-serif; color: var(--text-dark); background: var(--white); overflow-x: hidden; }
+
+    /* ─── BUBBLES ─── */
+    .bubbles-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 2; overflow: hidden; }
+    .bubble { position: absolute; border-radius: 50%; animation: floatUp linear infinite; }
+    .bubble.blue { background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.6), rgba(59,158,224,0.12)); border: 1.5px solid rgba(59,158,224,0.4); }
+    .bubble.orange { background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.6), rgba(244,123,32,0.12)); border: 1.5px solid rgba(244,123,32,0.38); }
+    @keyframes floatUp {
+      0%   { transform: translateY(105vh) scale(1); opacity: 0; }
+      10%  { opacity: 0.7; }
+      90%  { opacity: 0.7; }
+      100% { transform: translateY(-10vh) scale(1.06); opacity: 0; }
+    }
+    @keyframes pop {
+      0%   { transform: scale(1); opacity: 0.7; }
+      40%  { transform: scale(1.5); opacity: 0.5; }
+      70%  { transform: scale(2); opacity: 0.15; border-width: 3px; }
+      100% { transform: scale(2.4); opacity: 0; }
+    }
+    .bubble.popping { animation: pop 0.35s ease-out forwards; }
+
+    /* ─── NAV ─── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      background: rgba(255,255,255,0.94); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1.5px solid rgba(59,158,224,0.12); padding: 0 2.5rem; height: 68px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav-logo-sg { font-size: 1.8rem; font-weight: 900; color: var(--orange); letter-spacing: -1px; }
+    .nav-logo-rest { font-size: 1rem; font-weight: 800; color: var(--sky-dark); letter-spacing: 0.3px; }
+    .nav-links { display: flex; gap: 1.8rem; list-style: none; }
+    .nav-links a { text-decoration: none; color: var(--text-mid); font-weight: 700; font-size: 0.8rem; letter-spacing: 0.5px; text-transform: uppercase; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--orange); }
+    .nav-cta { background: var(--orange); color: white; padding: 0.55rem 1.4rem; border-radius: 50px; font-weight: 800; font-size: 0.85rem; text-decoration: none; transition: background 0.2s, transform 0.15s; box-shadow: 0 4px 14px rgba(244,123,32,0.3); }
+    .nav-cta:hover { background: var(--orange-dark); transform: translateY(-1px); }
+
+    /* ─── HERO ─── */
+    #hero {
+      min-height: 100vh;
+      background: linear-gradient(145deg, #EBF6FD 0%, #D2ECFA 45%, #BDE3F7 100%);
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      text-align: center; padding: 7rem 2rem 5rem; position: relative;
+    }
+    .hero-blob { position: absolute; border-radius: 50%; filter: blur(50px); pointer-events: none; }
+    .hero-blob.b1 { width: 650px; height: 650px; top: -220px; right: -160px; background: rgba(59,158,224,0.09); }
+    .hero-blob.b2 { width: 450px; height: 450px; bottom: -120px; left: -120px; background: rgba(244,123,32,0.07); }
+
+    .hero-brand { line-height: 1; margin-bottom: 0.5rem; }
+    .hero-brand-sg { display: block; font-size: clamp(6rem, 16vw, 13rem); font-weight: 900; color: var(--orange); letter-spacing: -4px; line-height: 0.88; }
+    .hero-brand-cleaning { display: block; font-size: clamp(2.4rem, 6.5vw, 5.5rem); font-weight: 900; color: var(--sky-dark); letter-spacing: -1px; }
+    .hero-brand-services { display: block; font-size: clamp(1rem, 2.5vw, 2rem); font-weight: 800; color: var(--sky); letter-spacing: 5px; text-transform: uppercase; margin-top: 0.3rem; }
+
+    .hero-slogan { font-family: 'Playfair Display', serif; font-size: clamp(1.6rem, 4.5vw, 3.5rem); font-weight: 700; font-style: italic; line-height: 1.15; margin: 1.6rem 0 1rem; }
+    .slogan-dark { color: var(--sky-dark); }
+    .slogan-light { color: var(--sky-mid); }
+
+    .hero-sub { font-size: clamp(0.95rem, 2vw, 1.1rem); color: var(--text-mid); font-weight: 600; margin-bottom: 2.5rem; max-width: 460px; }
+
+    .hero-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-bottom: 3rem; }
+    .btn-primary { background: var(--orange); color: white; padding: 0.9rem 2.2rem; border-radius: 50px; font-weight: 800; font-size: 1rem; text-decoration: none; display: inline-block; transition: transform 0.15s, background 0.2s; box-shadow: 0 8px 24px rgba(244,123,32,0.35); }
+    .btn-primary:hover { background: var(--orange-dark); transform: translateY(-2px); }
+    .btn-outline { background: white; color: var(--sky-dark); border: 2px solid var(--sky); padding: 0.9rem 2.2rem; border-radius: 50px; font-weight: 800; font-size: 1rem; text-decoration: none; display: inline-block; transition: transform 0.15s, background 0.2s; }
+    .btn-outline:hover { background: var(--sky-light); transform: translateY(-2px); }
+
+    .hero-icons { display: flex; gap: 1.2rem; justify-content: center; flex-wrap: wrap; }
+    .hero-icon-item { display: flex; flex-direction: column; align-items: center; gap: 0.35rem; background: rgba(255,255,255,0.75); border: 1.5px solid rgba(59,158,224,0.18); border-radius: var(--radius); padding: 0.8rem 1.1rem; backdrop-filter: blur(6px); }
+    .hero-icon-item .ico { font-size: 1.6rem; }
+    .hero-icon-item span { font-size: 0.68rem; font-weight: 800; color: var(--text-mid); text-transform: uppercase; letter-spacing: 0.8px; }
+
+    /* ─── SHARED ─── */
+    section { position: relative; }
+    .section-inner { max-width: 1100px; margin: 0 auto; padding: 5rem 2rem; }
+    .section-label { font-size: 0.72rem; font-weight: 900; letter-spacing: 2.5px; text-transform: uppercase; color: var(--orange); margin-bottom: 0.6rem; }
+    .section-title { font-family: 'Playfair Display', serif; font-size: clamp(1.9rem, 4vw, 2.9rem); font-weight: 700; color: var(--text-dark); margin-bottom: 0.9rem; }
+    .section-sub { font-size: 1.05rem; color: var(--text-mid); font-weight: 600; max-width: 540px; margin-bottom: 3rem; }
+
+    /* ─── SERVICES ─── */
+    #services { background: var(--off-white); }
+    .services-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 1.5rem; }
+    .service-card { background: white; border-radius: var(--radius-lg); padding: 2rem; border: 1.5px solid rgba(59,158,224,0.1); transition: transform 0.2s, box-shadow 0.2s; position: relative; overflow: hidden; }
+    .service-card::after { content: ''; position: absolute; top: -25px; right: -25px; width: 90px; height: 90px; border-radius: 50%; background: rgba(59,158,224,0.05); }
+    .service-card:hover { transform: translateY(-4px); box-shadow: 0 14px 36px rgba(59,158,224,0.12); }
+    .service-card.orange-accent { border-color: rgba(244,123,32,0.15); }
+    .service-card.orange-accent::after { background: rgba(244,123,32,0.06); }
+    .service-card.orange-accent:hover { box-shadow: 0 14px 36px rgba(244,123,32,0.12); }
+    .service-ico { width: 52px; height: 52px; border-radius: 14px; background: var(--sky-light); display: flex; align-items: center; justify-content: center; font-size: 1.5rem; margin-bottom: 1rem; }
+    .service-ico.orange { background: var(--orange-light); }
+    .service-card h3 { font-size: 1.1rem; font-weight: 800; margin-bottom: 0.5rem; color: var(--text-dark); }
+    .service-card p { font-size: 0.9rem; color: var(--text-mid); line-height: 1.65; font-weight: 600; }
+    .freq-pills { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.8rem; }
+    .freq-pill { background: var(--sky-light); color: var(--sky-dark); border-radius: 50px; padding: 0.25rem 0.75rem; font-size: 0.72rem; font-weight: 800; }
+    .guarantee-badge { display: inline-flex; align-items: center; gap: 0.4rem; background: #FFF8F0; border: 1.5px solid rgba(244,123,32,0.25); color: var(--orange-dark); border-radius: 12px; padding: 0.55rem 0.9rem; font-size: 0.82rem; font-weight: 800; margin-top: 0.9rem; }
+
+    /* ─── SERVICE AREA ─── */
+    #area { background: linear-gradient(135deg, var(--sky-dark) 0%, var(--sky) 100%); }
+    #area .section-label { color: rgba(255,255,255,0.65); }
+    #area .section-title { color: white; }
+    #area .section-sub { color: rgba(255,255,255,0.75); }
+    .area-center { text-align: center; }
+    .area-radius-wrap { display: inline-flex; flex-direction: column; align-items: center; justify-content: center; width: 280px; height: 280px; border-radius: 50%; border: 4px dashed rgba(255,255,255,0.35); margin: 0 auto 1.5rem; background: rgba(255,255,255,0.08); }
+    .area-number { font-family: 'Playfair Display', serif; font-size: 6.5rem; font-weight: 700; font-style: italic; color: white; line-height: 1; }
+    .area-unit { font-size: 1rem; font-weight: 800; color: rgba(255,255,255,0.7); letter-spacing: 2px; text-transform: uppercase; }
+    .area-caption { font-size: 1rem; font-weight: 700; color: rgba(255,255,255,0.65); }
+
+    /* ─── ECO ─── */
+    #eco { background: linear-gradient(135deg, #E8F8F0 0%, #D4F0E4 100%); }
+    .eco-inner { display: flex; gap: 4rem; align-items: center; flex-wrap: wrap; }
+    .eco-text { flex: 1; min-width: 280px; }
+    #eco .section-label { color: var(--green); }
+    #eco .section-title { color: var(--green-dark); }
+    #eco .section-sub { color: #2E6B4A; }
+    .eco-badges { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 0.5rem; }
+    .eco-badge { display: flex; align-items: center; gap: 0.5rem; background: white; border: 1.5px solid rgba(46,158,107,0.2); border-radius: 50px; padding: 0.45rem 1rem; font-size: 0.82rem; font-weight: 800; color: var(--green-dark); }
+    .eco-visual { flex: 1; min-width: 240px; background: rgba(255,255,255,0.65); border: 2px solid rgba(46,158,107,0.2); border-radius: var(--radius-lg); padding: 2.5rem; text-align: center; }
+    .eco-icon-big { font-size: 4.5rem; display: block; margin-bottom: 1rem; }
+    .eco-visual h3 { font-size: 1.25rem; font-weight: 900; color: var(--green-dark); margin-bottom: 0.5rem; }
+    .eco-visual p { font-size: 0.9rem; font-weight: 600; color: #2E6B4A; line-height: 1.6; }
+
+    /* ─── GALLERY ─── */
+    #gallery { background: white; }
+    .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1.2rem; }
+    .gallery-card { border-radius: var(--radius); overflow: hidden; border: 1.5px solid rgba(59,158,224,0.1); background: var(--off-white); }
+    .gallery-pair { display: grid; grid-template-columns: 1fr 1fr; }
+    .gallery-half { aspect-ratio: 1; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 0.5rem; font-size: 2.2rem; padding: 1rem; }
+    .gallery-half.before { background: #FFF3F0; border-right: 1px dashed rgba(59,158,224,0.15); }
+    .gallery-half.after  { background: #EBF6FD; }
+    .gallery-half-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 1.5px; text-transform: uppercase; }
+    .gallery-half.before .gallery-half-label { color: #C0614A; }
+    .gallery-half.after  .gallery-half-label { color: var(--sky-dark); }
+    .gallery-caption { padding: 0.75rem 1rem; font-size: 0.85rem; font-weight: 700; color: var(--text-mid); border-top: 1px solid rgba(59,158,224,0.08); text-align: center; }
+    .gallery-upload-note { text-align: center; margin-top: 2rem; padding: 1.5rem; background: var(--sky-light); border-radius: var(--radius); color: var(--sky-dark); font-weight: 700; font-size: 0.9rem; border: 1.5px dashed rgba(59,158,224,0.35); }
+
+    /* ─── REVIEWS ─── */
+    #reviews { background: var(--off-white); }
+    .reviews-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; }
+    .review-card { background: white; border-radius: var(--radius-lg); padding: 1.75rem; border: 1.5px solid rgba(59,158,224,0.1); transition: transform 0.2s, box-shadow 0.2s; }
+    .review-card:hover { transform: translateY(-3px); box-shadow: 0 10px 28px rgba(59,158,224,0.1); }
+    .review-source { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem; }
+    .source-badge { font-size: 0.68rem; font-weight: 900; letter-spacing: 1px; text-transform: uppercase; padding: 0.22rem 0.7rem; border-radius: 50px; }
+    .source-badge.google { background: #EAF3FD; color: #1A6FA8; }
+    .source-badge.nextdoor { background: #E8F5E9; color: #2E7D32; }
+    .stars { color: #F5C518; font-size: 0.95rem; letter-spacing: 1px; }
+    .review-text { font-size: 0.95rem; color: var(--text-dark); line-height: 1.7; font-weight: 600; font-style: italic; margin-bottom: 1rem; }
+    .reviewer { font-size: 0.82rem; font-weight: 800; color: var(--text-mid); }
+
+    /* ─── CONTACT ─── */
+    #contact { background: white; }
+    .contact-wrap { display: grid; grid-template-columns: 1fr 1.4fr; gap: 3rem; align-items: start; }
+    .contact-headline { font-family: 'Playfair Display', serif; font-size: clamp(1.9rem, 4vw, 2.8rem); font-weight: 700; color: var(--text-dark); margin-bottom: 0.8rem; line-height: 1.15; }
+    .contact-headline em { color: var(--orange); font-style: italic; }
+    .contact-method { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.2rem; }
+    .contact-ico { width: 48px; height: 48px; border-radius: 14px; background: var(--orange-light); display: flex; align-items: center; justify-content: center; font-size: 1.3rem; flex-shrink: 0; }
+    .contact-method a, .contact-method p { font-size: 1rem; font-weight: 700; color: var(--text-dark); text-decoration: none; }
+    .contact-method a:hover { color: var(--orange); }
+    .contact-method small { display: block; font-size: 0.76rem; color: var(--text-mid); font-weight: 600; }
+    .contact-form {
+      background: #FFF3EA;
+      border-radius: var(--radius-lg);
+      padding: 2.5rem;
+      border: 2.5px solid var(--orange);
+      box-shadow: 0 0 18px rgba(244,123,32,0.35), 0 0 40px rgba(244,123,32,0.15);
+      animation: orangeGlow 2.5s ease-in-out infinite;
+      position: relative;
+    }
+    @keyframes orangeGlow {
+      0%   { box-shadow: 0 0 14px rgba(244,123,32,0.3), 0 0 30px rgba(244,123,32,0.12); border-color: var(--orange); }
+      50%  { box-shadow: 0 0 28px rgba(244,123,32,0.65), 0 0 60px rgba(244,123,32,0.25); border-color: #FF9A45; }
+      100% { box-shadow: 0 0 14px rgba(244,123,32,0.3), 0 0 30px rgba(244,123,32,0.12); border-color: var(--orange); }
+    }
+    .form-title { font-size: 1.25rem; font-weight: 900; margin-bottom: 1.5rem; color: var(--text-dark); }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .form-group { margin-bottom: 1rem; }
+    .form-group label { display: block; font-size: 0.75rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.8px; color: var(--text-mid); margin-bottom: 0.4rem; }
+    .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 0.75rem 1rem; border-radius: 12px; border: 1.5px solid rgba(59,158,224,0.18); background: white; font-family: 'Nunito', sans-serif; font-size: 0.95rem; font-weight: 600; color: var(--text-dark); outline: none; transition: border-color 0.2s; }
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--orange); }
+    .form-group textarea { resize: vertical; min-height: 100px; }
+    .form-submit { width: 100%; padding: 1rem; background: var(--orange); color: white; border: none; border-radius: 50px; font-family: 'Nunito', sans-serif; font-size: 1rem; font-weight: 900; cursor: pointer; transition: background 0.2s, transform 0.15s; box-shadow: 0 6px 20px rgba(244,123,32,0.35); letter-spacing: 0.5px; }
+    .form-submit:hover { background: var(--orange-dark); transform: translateY(-2px); }
+    .form-success { display: none; text-align: center; padding: 1.5rem; background: #EBF6FD; border-radius: var(--radius); color: var(--sky-dark); font-weight: 800; font-size: 1.05rem; }
+
+    /* ─── FOOTER ─── */
+    footer { background: var(--text-dark); color: rgba(255,255,255,0.7); text-align: center; padding: 2.5rem 2rem; font-size: 0.9rem; font-weight: 600; }
+    footer a { color: var(--sky-mid); text-decoration: none; }
+    footer strong { color: white; }
+    .footer-logo { font-size: 1.8rem; font-weight: 900; margin-bottom: 0.4rem; }
+    .footer-logo span { color: var(--orange); }
+
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .contact-wrap { grid-template-columns: 1fr; }
+      .form-row { grid-template-columns: 1fr; }
+      .eco-inner { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="bubbles-bg" id="bubblesContainer"></div>
+
+<!-- NAV -->
+<nav>
+  <div>
+    <span class="nav-logo-sg">S.G.</span>
+    <span class="nav-logo-rest"> Cleaning Services</span>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#area">Service Area</a></li>
+    <li><a href="#eco">Eco-Friendly</a></li>
+    <li><a href="#gallery">Gallery</a></li>
+    <li><a href="#reviews">Reviews</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="#contact" class="nav-cta">Get a Quote</a>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-blob b1"></div>
+  <div class="hero-blob b2"></div>
+  <div class="hero-brand">
+    <span class="hero-brand-sg">S.G.</span>
+    <span class="hero-brand-cleaning">Cleaning</span>
+    <span class="hero-brand-services">Services</span>
+  </div>
+  <div class="hero-slogan">
+    <span class="slogan-dark">If it's Dirty,&nbsp;</span><span style="color: var(--orange); font-family: 'Playfair Display', serif; font-style: italic;">we clean it.</span>
+  </div>
+  <p class="hero-sub">Professional residential &amp; commercial cleaning serving the greater Denver metro area and beyond.</p>
+  <div class="hero-btns">
+    <a href="#contact" class="btn-primary">Request a Free Quote</a>
+    <a href="tel:7204016601" class="btn-outline">📞 720.401.6601</a>
+  </div>
+  <div class="hero-icons">
+    <div class="hero-icon-item"><span class="ico">🏠</span><span>Residential</span></div>
+    <div class="hero-icon-item"><span class="ico">🏗️</span><span>Remodels</span></div>
+    <div class="hero-icon-item"><span class="ico">🔨</span><span>New Construction</span></div>
+    <div class="hero-icon-item"><span class="ico">✈️</span><span>Aircraft</span></div>
+    <div class="hero-icon-item"><span class="ico">⛵</span><span>Watercraft</span></div>
+    <div class="hero-icon-item"><span class="ico">🚐</span><span>RV</span></div>
+  </div>
+</section>
+
+<!-- NO TRAVEL FEE BANNER -->
+<div style="background: linear-gradient(90deg, var(--orange-dark), var(--orange), #FF9A45, var(--orange), var(--orange-dark)); background-size: 300% 100%; animation: shimmer 4s ease infinite; padding: 1rem 2rem; text-align: center; position: relative; z-index: 1;">
+  <p style="color: white; font-weight: 900; font-size: clamp(0.85rem, 2vw, 1.05rem); letter-spacing: 0.5px; margin: 0;">
+    ⛽ <strong>No Travel Fees — Ever.</strong> &nbsp;While other companies charge extra for gas, S.G. Cleaning Services never has and never will. We come to you, anywhere in Colorado, at no extra cost.
+  </p>
+</div>
+<style>
+  @keyframes shimmer { 0% { background-position: 100% 0; } 100% { background-position: -100% 0; } }
+</style>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="section-inner">
+    <p class="section-label">What We Do</p>
+    <h2 class="section-title">A clean for every need.</h2>
+    <p class="section-sub">From daily upkeep to once-in-a-lifetime deep cleans — if it needs cleaning, Sue's got it covered.</p>
+    <div class="services-grid">
+
+      <div class="service-card">
+        <div class="service-ico">🏠</div>
+        <h3>Residential Cleaning</h3>
+        <p>Top-to-bottom home cleaning tailored to your lifestyle. Every surface, every corner, every time.</p>
+      </div>
+
+      <div class="service-card orange-accent">
+        <div class="service-ico orange">📅</div>
+        <h3>Frequency Schedules</h3>
+        <p>Choose the cadence that fits your life. We offer flexible recurring plans to keep things consistently spotless.</p>
+        <div class="freq-pills">
+          <span class="freq-pill">Daily</span>
+          <span class="freq-pill">Weekly</span>
+          <span class="freq-pill">Bi-Weekly</span>
+          <span class="freq-pill">Monthly</span>
+          <span class="freq-pill">Bi-Monthly</span>
+          <span class="freq-pill">Semi-Annual</span>
+          <span class="freq-pill">Annual</span>
+        </div>
+      </div>
+
+      <div class="service-card">
+        <div class="service-ico">🧽</div>
+        <h3>Deep Cleans</h3>
+        <p>Our most thorough clean — built for spaces that need a serious reset. We go behind the appliances, inside the cabinets, into the grout lines, and every spot in between. This isn't routine maintenance; it's a full transformation.</p>
+      </div>
+
+      <div class="service-card">
+        <div class="service-ico">🔨</div>
+        <h3>New Construction</h3>
+        <p>Post-build detailing that removes construction dust, debris, and residue so your new space shines from day one.</p>
+      </div>
+
+      <div class="service-card orange-accent">
+        <div class="service-ico orange">🔑</div>
+        <h3>Make Readies</h3>
+        <p>Move-in and move-out cleans that get properties tenant-ready or buyer-ready fast. We stand behind our work:</p>
+        <div class="guarantee-badge">🛡️ Security deposit back — or we refund your cleaning fee.</div>
+      </div>
+
+      <div class="service-card orange-accent">
+        <div class="service-ico orange">✨</div>
+        <h3>And Much More</h3>
+        <p>Remodels, offices, and specialty vehicles including aircraft, watercraft, RVs, limos, and buses. If it's dirty and needs cleaning, we can handle it. Simple as that.</p>
+      </div>
+
+      <div class="service-card" style="border-color: rgba(244,123,32,0.3); background: linear-gradient(135deg, #fff 60%, #FFF3EA);">
+        <div class="service-ico orange">⛽</div>
+        <h3>Zero Travel Fees</h3>
+        <p>While other cleaning companies are adding travel surcharges to every invoice, we refuse to pass that burden onto you. S.G. Cleaning Services comes to you — anywhere in Colorado — at no extra cost. That's our commitment to you.</p>
+      </div>
+
+      <div class="service-card">
+        <div class="service-ico">⚡</div>
+        <h3>NCO — Express Clean</h3>
+        <p>Neat. Clean. Orderly. Our signature express service gets your space back to its best — fast. Call and schedule an NCO when you need a quick, thorough refresh without the full deep-clean commitment.</p>
+        <div class="freq-pills">
+          <span class="freq-pill">Neat</span>
+          <span class="freq-pill">Clean</span>
+          <span class="freq-pill">Orderly</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- SERVICE AREA -->
+<section id="area">
+  <div class="section-inner area-center">
+    <p class="section-label">Coverage</p>
+    <h2 class="section-title">We come to you.</h2>
+    <p class="section-sub" style="margin: 0 auto 2.5rem;">Sue and her team serve clients anywhere in Colorado — no travel fees, no surprises.</p>
+    <div class="area-radius-wrap">
+      <div class="area-number" style="font-size: 3.5rem; letter-spacing: -1px;">Anywhere</div>
+      <div class="area-unit">in Colorado</div>
+    </div>
+    <p class="area-caption">No travel fees. Ever.</p>
+  </div>
+</section>
+
+<!-- ECO-FRIENDLY -->
+<section id="eco">
+  <div class="section-inner">
+    <div class="eco-inner">
+      <div class="eco-text">
+        <p class="section-label">Green Cleaning</p>
+        <h2 class="section-title" style="color: var(--green-dark);">Clean home. Clean conscience.</h2>
+        <p class="section-sub" style="color: #2E6B4A; max-width: 480px;">We offer 100% organic, human-safe, and pet-safe cleaning products — so your home is spotless without harsh chemicals, fumes, or worry.</p>
+        <div class="eco-badges">
+          <span class="eco-badge">🌿 100% Organic Products</span>
+          <span class="eco-badge">👶 Human Safe</span>
+          <span class="eco-badge">🐾 Pet Safe</span>
+          <span class="eco-badge">🚫 No Harsh Chemicals</span>
+          <span class="eco-badge">🌎 Earth Friendly</span>
+        </div>
+      </div>
+      <div class="eco-visual">
+        <span class="eco-icon-big">🌿</span>
+        <h3>Eco-Friendly Option Available</h3>
+        <p>Just let us know at booking and we'll bring our full organic lineup. Same spotless results — with ingredients you can feel great about.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section id="gallery">
+  <div class="section-inner">
+    <p class="section-label">Our Work</p>
+    <h2 class="section-title">Before &amp; After</h2>
+    <p class="section-sub">The proof is in the pictures. See what a difference S.G. Cleaning makes.</p>
+    <div class="gallery-grid">
+      <div class="gallery-card">
+        <div class="gallery-pair">
+          <div class="gallery-half before">🧹<span class="gallery-half-label">Before</span></div>
+          <div class="gallery-half after">✨<span class="gallery-half-label">After</span></div>
+        </div>
+        <div class="gallery-caption">Kitchen Deep Clean</div>
+      </div>
+      <div class="gallery-card">
+        <div class="gallery-pair">
+          <div class="gallery-half before">🧹<span class="gallery-half-label">Before</span></div>
+          <div class="gallery-half after">✨<span class="gallery-half-label">After</span></div>
+        </div>
+        <div class="gallery-caption">Bathroom Refresh</div>
+      </div>
+      <div class="gallery-card">
+        <div class="gallery-pair">
+          <div class="gallery-half before">🧹<span class="gallery-half-label">Before</span></div>
+          <div class="gallery-half after">✨<span class="gallery-half-label">After</span></div>
+        </div>
+        <div class="gallery-caption">Post-Construction Cleanup</div>
+      </div>
+      <div class="gallery-card">
+        <div class="gallery-pair">
+          <div class="gallery-half before">🧹<span class="gallery-half-label">Before</span></div>
+          <div class="gallery-half after">✨<span class="gallery-half-label">After</span></div>
+        </div>
+        <div class="gallery-caption">Make Ready</div>
+      </div>
+    </div>
+    <div class="gallery-upload-note">
+      📷 Real before &amp; after photos coming soon! Sue's team is out there making magic happen — check back shortly.
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section id="reviews">
+  <div class="section-inner">
+    <p class="section-label">Happy Customers</p>
+    <h2 class="section-title">What people are saying.</h2>
+    <p class="section-sub">Real reviews from real neighbors — on Nextdoor and beyond.</p>
+    <div class="reviews-grid">
+
+      <div class="review-card">
+        <div class="review-source"><span class="source-badge nextdoor">Nextdoor</span><span class="stars">★★★★★</span></div>
+        <p class="review-text">"Highly recommend Sue's housecleaning services! Sue and her team did a move out clean for my townhouse and left it spotless. She was professional, responsive and kept me updated throughout the whole process. My landlord even said the place had never been cleaner! Sue is detail oriented, motivated, and offers great quality for a reasonable price."</p>
+        <p class="reviewer">— Charlotte, West Street</p>
+      </div>
+
+      <div class="review-card">
+        <div class="review-source"><span class="source-badge nextdoor">Nextdoor</span><span class="stars">★★★★★</span></div>
+        <p class="review-text">"I want to highly recommend Sue, who recently helped me with my move-out clean. She is incredibly responsible, super nice, and pays great attention to detail. I've worked with several cleaning ladies in the past, but Sue truly stands out. She went above and beyond to make sure everything was spotless and organized. 10/10 recommend!"</p>
+        <p class="reviewer">— Abbie, Broomfield</p>
+      </div>
+
+      <div class="review-card">
+        <div class="review-source"><span class="source-badge nextdoor">Nextdoor</span><span class="stars">★★★★★</span></div>
+        <p class="review-text">"Sue is a housecleaning 'wizard'. She is organized, thorough and efficient. She also has many tips to share on home upkeep — even for me — who has been keeping up homes for many years! I feel lucky to have found her!"</p>
+        <p class="reviewer">— Meril, Colorado</p>
+      </div>
+
+      <div class="review-card">
+        <div class="review-source"><span class="source-badge nextdoor">Nextdoor</span><span class="stars">★★★★★</span></div>
+        <p class="review-text">"Sue is fantastic! I hired her to clean my son's apartment at UC Boulder before his return to school and WOW what an amazing job she did! She does more than just a basic clean — laundry, bedding, folded organized and stored away. The wood floors were shining! She goes above and beyond, is a perfectionist and communicates along the way."</p>
+        <p class="reviewer">— Nextdoor Neighbor, Colorado</p>
+      </div>
+
+      <div class="review-card">
+        <div class="review-source"><span class="source-badge nextdoor">Nextdoor</span><span class="stars">★★★★★</span></div>
+        <p class="review-text">"I've never been comfortable with hiring a cleaning service, as I always think no one does it better than I do, myself. They did a fantastic job (and I'm a very harsh critic) and went above & beyond, scraping up some paint my painters left on the floor! I'm so happy with the job Sue did that I'm going to hire her to help me in my own home. Highly recommend!"</p>
+        <p class="reviewer">— Susan, Colorado</p>
+      </div>
+
+    </div>
+    <div style="text-align:center;margin-top:2.5rem;">
+      <a href="https://g.page/r/review" target="_blank" class="btn-primary" style="margin-right:1rem;">Leave a Google Review</a>
+      <a href="https://nextdoor.com/page/sg-services-for-your-home-louisville-co" target="_blank" class="btn-outline">Review on Nextdoor</a>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-inner">
+    <div class="contact-wrap">
+      <div>
+        <p class="section-label">Get in Touch</p>
+        <h2 class="contact-headline">All the clean.<br><em>None of the work.</em></h2>
+        <p class="section-sub" style="margin-bottom:2rem;">One message is all it takes. Sue handles everything from there — you just show up to a spotless space.</p>
+        <div class="contact-method">
+          <div class="contact-ico">📞</div>
+          <div><small>Call or Text</small><a href="tel:7204016601">720.401.6601</a></div>
+        </div>
+        <div class="contact-method">
+          <div class="contact-ico">✉️</div>
+          <div><small>Email</small><a href="mailto:sue.hailoh@gmail.com">sue.hailoh@gmail.com</a></div>
+        </div>
+        <div class="contact-method">
+          <div class="contact-ico">📍</div>
+          <div><small>Service Area</small><p>Anywhere in Colorado — no travel fees</p></div>
+        </div>
+      </div>
+      <div class="contact-form">
+        <p class="form-title">Request a Free Quote</p>
+        <div id="formWrap">
+          <div class="form-row">
+            <div class="form-group"><label>First Name</label><input type="text" id="fname" placeholder="Jane" /></div>
+            <div class="form-group"><label>Last Name</label><input type="text" id="lname" placeholder="Smith" /></div>
+          </div>
+          <div class="form-row">
+            <div class="form-group"><label>Phone</label><input type="tel" id="phone" placeholder="720-555-0100" /></div>
+            <div class="form-group"><label>Email</label><input type="email" id="email" placeholder="jane@example.com" /></div>
+          </div>
+          <div class="form-group"><label>City / Zip</label><input type="text" id="city" placeholder="Louisville, CO 80027" /></div>
+          <div class="form-group">
+            <label>Service Needed</label>
+            <select id="service">
+              <option value="">Select a service...</option>
+              <option>NCO — Express Clean (Neat, Clean, Orderly)</option>
+              <option>Residential Cleaning</option>
+              <option>Daily Schedule</option>
+              <option>Weekly Schedule</option>
+              <option>Bi-Weekly Schedule</option>
+              <option>Monthly Schedule</option>
+              <option>Bi-Monthly Schedule</option>
+              <option>Semi-Annual / Annual Clean</option>
+              <option>Deep Clean</option>
+              <option>Make Ready / Move-In / Move-Out</option>
+              <option>New Construction Cleanup</option>
+              <option>Vehicle / Aircraft / Watercraft / RV</option>
+              <option>Commercial Cleaning</option>
+              <option>Something Else</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Eco-Friendly Products?</label>
+            <select id="eco-pref">
+              <option value="">I'll decide later</option>
+              <option>Yes — please use organic / pet-safe products</option>
+              <option>No preference — standard products are fine</option>
+            </select>
+          </div>
+          <div class="form-group"><label>Tell Us More</label><textarea id="message" placeholder="Square footage, number of rooms, special requests, vehicle type..."></textarea></div>
+          <button class="form-submit" onclick="submitForm()">Send My Request ✨</button>
+        </div>
+        <div class="form-success" id="formSuccess">
+          🫧 Thanks! Sue will be in touch with you shortly.<br>
+          <small style="font-weight:600;color:var(--sky-dark);">Questions? Call or text 720.401.6601</small>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo"><span>S.G.</span> Cleaning Services</div>
+  <p style="font-style:italic;opacity:0.65;margin-bottom:0.6rem;">If it's dirty, we clean it.</p>
+  <p><a href="mailto:sue.hailoh@gmail.com">sue.hailoh@gmail.com</a> &nbsp;|&nbsp; <a href="tel:7204016601">720.401.6601</a> &nbsp;|&nbsp; <a href="http://mycleanersue.com">mycleanersue.com</a></p>
+  <p style="margin-top:1rem;font-size:0.75rem;opacity:0.4;">© 2026 S.G. Cleaning Services. All rights reserved.</p>
+</footer>
+
+<script>
+  // Bubbles — fixed, float up behind all content, randomly pop
+  const container = document.getElementById('bubblesContainer');
+  const bubbleData = [
+    {size:18, left:5,  dur:22, delay:0,  type:'blue'},
+    {size:30, left:14, dur:28, delay:6,  type:'blue'},
+    {size:14, left:24, dur:19, delay:11, type:'orange'},
+    {size:40, left:35, dur:32, delay:3,  type:'blue'},
+    {size:12, left:46, dur:17, delay:15, type:'orange'},
+    {size:24, left:57, dur:25, delay:8,  type:'blue'},
+    {size:36, left:68, dur:30, delay:2,  type:'blue'},
+    {size:16, left:78, dur:20, delay:13, type:'orange'},
+    {size:28, left:88, dur:27, delay:5,  type:'blue'},
+    {size:20, left:96, dur:23, delay:9,  type:'blue'},
+  ];
+
+  const bubbleEls = [];
+  bubbleData.forEach(d => {
+    const b = document.createElement('div');
+    b.className = `bubble ${d.type}`;
+    b.style.cssText = `width:${d.size}px;height:${d.size}px;left:${d.left}%;animation-duration:${d.dur}s;animation-delay:-${d.delay}s;`;
+    container.appendChild(b);
+    bubbleEls.push({el: b, dur: d.dur});
+  });
+
+  // Randomly pop a bubble every 1.5–4 seconds
+  function popRandom() {
+    const candidate = bubbleEls[Math.floor(Math.random() * bubbleEls.length)];
+    const b = candidate.el;
+    // Only pop if bubble is currently mid-float (visible range)
+    if (!b.classList.contains('popping')) {
+      b.classList.add('popping');
+      setTimeout(() => {
+        b.classList.remove('popping');
+      }, 400);
+    }
+    setTimeout(popRandom, 1500 + Math.random() * 2500);
+  }
+  setTimeout(popRandom, 2000);
+
+  function submitForm() {
+    const fname = document.getElementById('fname').value.trim();
+    const email = document.getElementById('email').value.trim();
+    if (!fname || !email) { alert('Please fill in at least your name and email.'); return; }
+    document.getElementById('formWrap').style.display = 'none';
+    document.getElementById('formSuccess').style.display = 'block';
+  }
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.style.opacity = '1'; e.target.style.transform = 'translateY(0)'; }
+    });
+  }, { threshold: 0.08 });
+
+  document.querySelectorAll('.service-card, .review-card, .gallery-card, .eco-visual').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(20px)';
+    el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+    observer.observe(el);
+  });
+</script>
+</body>
+</html>
