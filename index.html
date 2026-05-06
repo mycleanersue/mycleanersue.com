@@ -508,19 +508,19 @@
         <p class="form-title">Request a Free Quote</p>
         <div id="formWrap">
           <div class="form-row">
-            <div class="form-group"><label>First Name <span style="color:var(--orange)">*</span></label><input type="text" id="fname" placeholder="Jane" autocomplete="given-name" required /></div>
-            <div class="form-group"><label>Last Name <span style="color:var(--orange)">*</span></label><input type="text" id="lname" placeholder="Smith" autocomplete="family-name" required /></div>
+            <div class="form-group"><label>First Name <span style="color:var(--orange)">*</span></label><input type="text" id="fname" placeholder="Jane" value="John" autocomplete="given-name" required /></div>
+            <div class="form-group"><label>Last Name <span style="color:var(--orange)">*</span></label><input type="text" id="lname" placeholder="Smith" value="Tester" autocomplete="family-name" required /></div>
           </div>
           <div class="form-row">
-            <div class="form-group"><label>Phone <span style="color:var(--orange)">*</span></label><input type="tel" id="phone" placeholder="720-555-0100" autocomplete="tel" maxlength="14" required /></div>
-            <div class="form-group"><label>Email <span style="color:var(--orange)">*</span></label><input type="email" id="email" placeholder="jane@example.com" autocomplete="email" required /></div>
+            <div class="form-group"><label>Phone <span style="color:var(--orange)">*</span></label><input type="tel" id="phone" placeholder="720-555-0100" value="7204016601" autocomplete="tel" maxlength="10" required /></div>
+            <div class="form-group"><label>Email <span style="color:var(--orange)">*</span></label><input type="email" id="email" placeholder="jane@example.com" value="j.riezy@gmail.com" autocomplete="email" required /></div>
           </div>
-          <div class="form-group"><label>City / Zip <span style="color:var(--orange)">*</span></label><input type="text" id="city" placeholder="Louisville, CO 80027" autocomplete="address-level2" required /></div>
+          <div class="form-group"><label>City / Zip <span style="color:var(--orange)">*</span></label><input type="text" id="city" placeholder="Louisville, CO 80027" value="Broomfield, CO 80027" autocomplete="address-level2" required /></div>
           <div class="form-group">
             <label>Service Needed <span style="color:var(--orange)">*</span></label>
             <select id="service" required>
               <option value="">Select a service...</option>
-              <option>NCO — Express Clean (Neat, Clean, Orderly)</option>
+              <option selected>NCO — Express Clean (Neat, Clean, Orderly)</option>
               <option>Residential Cleaning</option>
               <option>Daily Schedule</option>
               <option>Weekly Schedule</option>
@@ -540,11 +540,11 @@
             <label>Eco-Friendly Products? <span style="color:var(--orange)">*</span></label>
             <select id="eco-pref" required>
               <option value="">Please select...</option>
-              <option>Yes — please use organic / pet-safe products</option>
+              <option selected>Yes — please use organic / pet-safe products</option>
               <option>No preference — standard products are fine</option>
             </select>
           </div>
-          <div class="form-group"><label>Tell Us More <span style="color:var(--orange)">*</span></label><textarea id="message" placeholder="Square footage, number of rooms, special requests, vehicle type..." autocomplete="off" required></textarea></div>
+          <div class="form-group"><label>Tell Us More <span style="color:var(--orange)">*</span></label><textarea id="message" placeholder="Square footage, number of rooms, special requests, vehicle type..." autocomplete="off" required>This is a test submission to verify email delivery. Please ignore.</textarea></div>
           <p style="font-size:0.75rem;color:var(--text-mid);font-weight:700;margin-bottom:1rem;">* All fields required</p>
           <button class="form-submit" onclick="submitForm()">Send My Request ✨</button>
         </div>
@@ -563,6 +563,7 @@
   <p style="font-style:italic;opacity:0.65;margin-bottom:0.6rem;">If it's dirty, we clean it.</p>
   <p><a href="mailto:sue.hailoh@gmail.com">sue.hailoh@gmail.com</a> &nbsp;|&nbsp; <a href="tel:7204016601">720.401.6601</a> &nbsp;|&nbsp; <a href="http://mycleanersue.com">mycleanersue.com</a></p>
   <p style="margin-top:1rem;font-size:0.75rem;opacity:0.4;">© 2026 S.G. Cleaning Services. All rights reserved.</p>
+  <p style="font-size:0.65rem;opacity:0.25;margin-top:0.3rem;">v1.0</p>
 </footer>
 
 <script>
@@ -682,7 +683,11 @@
     });
   }
 
-  const observer = new IntersectionObserver((entries) => {
+  // Phone field — digits only, max 10
+  const phoneInput = document.getElementById('phone');
+  phoneInput.addEventListener('input', function() {
+    this.value = this.value.replace(/\D/g, '').slice(0, 10);
+  });((entries) => {
     entries.forEach(e => {
       if (e.isIntersecting) { e.target.style.opacity = '1'; e.target.style.transform = 'translateY(0)'; }
     });
