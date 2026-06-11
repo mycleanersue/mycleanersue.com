@@ -1,0 +1,15 @@
+{
+  "name": "S.G. Cleaning — Crew",
+  "short_name": "S.G. Crew",
+  "description": "Your cleaning jobs for the day.",
+  "start_url": "/crew",
+  "scope": "/crew",
+  "display": "standalone",
+  "background_color": "#f4f6f5",
+  "theme_color": "#15695b",
+  "orientation": "portrait",
+  "icons": [
+    { "src": "/icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
+    { "src": "/icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ]
+}

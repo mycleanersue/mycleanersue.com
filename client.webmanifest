@@ -1,0 +1,15 @@
+{
+  "name": "S.G. Cleaning — My Account",
+  "short_name": "S.G. Cleaning",
+  "description": "Your cleanings, requests, and history.",
+  "start_url": "/portal",
+  "scope": "/portal",
+  "display": "standalone",
+  "background_color": "#f6f4ee",
+  "theme_color": "#1f8a78",
+  "orientation": "portrait",
+  "icons": [
+    { "src": "/icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
+    { "src": "/icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ]
+}
